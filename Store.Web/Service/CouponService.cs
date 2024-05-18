@@ -30,6 +30,7 @@ namespace Store.Web.Service
 			});
 		}
 
+
 		public async Task<ResponseDto?> GetAllCouponsAsync()
 		{
 			return await _baseService.SendAsync(new RequestDto()
@@ -53,7 +54,7 @@ namespace Store.Web.Service
 			return await _baseService.SendAsync(new RequestDto()
 			{
 				ApiType = SD.ApiType.GET,
-				Url = SD.CouponAPIBase + "/api/coupon" + id
+				Url = SD.CouponAPIBase + "/api/coupon/" + id
 			});
 		}
 
