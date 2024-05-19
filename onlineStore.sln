@@ -13,7 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{37
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "onlineStore.Services.CouponAPI", "onlineStore.Services.CouponAPI\onlineStore.Services.CouponAPI.csproj", "{3DC02598-F955-4264-9551-892EF4E73FE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Web", "Store.Web\Store.Web.csproj", "{D0922EAE-7C55-43DC-81FF-1420C356CF49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Web", "Store.Web\Store.Web.csproj", "{D0922EAE-7C55-43DC-81FF-1420C356CF49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onlineStore.Services.AuthAPI", "onlineStore.Services.AuthAPI\onlineStore.Services.AuthAPI.csproj", "{B9DF16BD-D479-4CBC-830D-80D1EAE680E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{D0922EAE-7C55-43DC-81FF-1420C356CF49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0922EAE-7C55-43DC-81FF-1420C356CF49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0922EAE-7C55-43DC-81FF-1420C356CF49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9DF16BD-D479-4CBC-830D-80D1EAE680E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9DF16BD-D479-4CBC-830D-80D1EAE680E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9DF16BD-D479-4CBC-830D-80D1EAE680E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9DF16BD-D479-4CBC-830D-80D1EAE680E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3DC02598-F955-4264-9551-892EF4E73FE0} = {37BDD993-8CE5-4769-913D-D4F58B26D108}
 		{D0922EAE-7C55-43DC-81FF-1420C356CF49} = {325DE617-5AEE-429C-BDB5-0A0A7051DF23}
+		{B9DF16BD-D479-4CBC-830D-80D1EAE680E0} = {37BDD993-8CE5-4769-913D-D4F58B26D108}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD39130D-5D78-4661-8775-87020339115A}
