@@ -11,11 +11,13 @@ namespace onlineStore.Services.AuthAPI.Controllers
     {
         private readonly IAuthService _authService;
         protected ResponseDto _response;
+        
 
         public AuthAPIController(IAuthService authService)
         {
             _authService = authService;
             _response = new();
+            
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDto model)
@@ -43,6 +45,20 @@ namespace onlineStore.Services.AuthAPI.Controllers
             }
             _response.Result = loginResponse;
             return Ok(_response);
+        }
+
+        [HttpPost("AssignRole")]
+        public async Task<IActionResult> AssignRole([FromBody] RegistrationRequestDto model)
+        {
+            var assignRoleSuccessful = await _authService.AssignRole(model.Email, model.Role.ToUpper());
+            if (!assignRoleSuccessful)
+            {
+                _response.IsSuccess = false;
+                _response.Message = "Error encountered";
+                return BadRequest(_response);
+            }
+            return Ok(_response);
+
         }
     }
 }
