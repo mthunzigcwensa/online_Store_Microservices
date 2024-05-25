@@ -1,21 +1,19 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using onlineStore.Services.CouponAPI;
-using onlineStore.Services.CouponAPI.Data;
-using onlineStore.Services.CouponAPI.Extensions;
-using System.Text;
+using onlineStore.Services.ProductAPI;
+using onlineStore.Services.ProductAPI.Data;
+using onlineStore.Services.ProductAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
-	option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -47,37 +45,38 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-
 builder.AddAppAuthetication();
 
 builder.Services.AddAuthorization();
-
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
+ApplyMigration();
 
 app.MapControllers();
-ApplyMigration();
+
 app.Run();
+
 void ApplyMigration()
 {
-	using (var scope = app.Services.CreateScope())
-	{
-		var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    using (var scope = app.Services.CreateScope())
+    {
+        var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-		if (_db.Database.GetPendingMigrations().Count() > 0)
-		{
-			_db.Database.Migrate();
-		}
-	}
+        if (_db.Database.GetPendingMigrations().Count() > 0)
+        {
+            _db.Database.Migrate();
+        }
+    }
 }

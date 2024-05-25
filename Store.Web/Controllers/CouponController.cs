@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Store.Web.Models;
 using Store.Web.Service.IService;
@@ -24,7 +25,9 @@ namespace Store.Web.Controllers
                 return View(list);
         }
 
-		public async Task<IActionResult> CouponCreate()
+
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> CouponCreate()
 		{
 			return View();
 		}
@@ -50,7 +53,8 @@ namespace Store.Web.Controllers
 
         }
 
-		public async Task<IActionResult> CouponDelete(int couponId)
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> CouponDelete(int couponId)
 		{
 			ResponseDto? response = await _couponService.GetCouponByIdAsync(couponId);
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using onlineStore.Services.CouponAPI.Data;
@@ -10,7 +11,8 @@ namespace onlineStore.Services.CouponAPI.Controllers
 {
 	[Route("api/coupon")]
 	[ApiController]
-	public class CouponAPIController : ControllerBase
+    [Authorize]
+    public class CouponAPIController : ControllerBase
 	{
 		private readonly AppDbContext _db;
 		private ResponseDto _response;
