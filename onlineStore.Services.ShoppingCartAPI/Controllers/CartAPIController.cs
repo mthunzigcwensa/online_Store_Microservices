@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using onlineStore.Services.ShoppingCartAPI.Data;
+using onlineStore.Services.ShoppingCartAPI.Models;
 using onlineStore.Services.ShoppingCartAPI.Models.Dto;
 
 namespace onlineStore.Services.ShoppingCartAPI.Controllers
@@ -25,8 +27,42 @@ namespace onlineStore.Services.ShoppingCartAPI.Controllers
         [HttpPost("CartUpsert")]
         public async Task<ResponseDto> CartUpsert(CartDto cartDto)
         {
+            try
+            {
+                var cartHeaderFromDb = await _db.CartHeaders.FirstOrDefaultAsync(u => u.UserId == cartDto.CartHeader.UserId);
+                if (cartHeaderFromDb == null)
+                {
+                    //create header and details
+                    CartHeader cartHeader = _mapper.Map<CartHeader>(cartDto.CartHeader);
+                    _db.CartHeaders.Add(cartHeader);
+                    await _db.SaveChangesAsync();
+                    cartDto.CartDetails.First().CartHeaderId = cartHeader.CartHeaderId;
+                    _db.CartDetails.Add(_mapper.Map<CartDetails>(cartDto.CartDetails.First()));
+                    await _db.SaveChangesAsync();
+                }
+                else
+                {
+                    //if header is not null
+                    //check if details has same product
+                    var cartDetailsFromDb = await _db.CartDetails.FirstOrDefaultAsync(
+                        u => u.ProductId == cartDto.CartDetails.First().ProductId &&
+                        u.CartHeaderId == cartHeaderFromDb.CartHeaderId);
+                    if (cartDetailsFromDb == null)
+                    {
+                        //create cartdetails
+                    }
+                    else
+                    {
+                        //update count in cart details
+                    }
+                }
 
-
+            }
+            catch (Exception ex)
+            {
+                _response.Message = ex.Message.ToString();
+                _response.IsSuccess = false;
+            }
         }
 
 
